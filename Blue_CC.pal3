@@ -1,0 +1,29 @@
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Any question/comments can be sent to wxmeddler@gmail.com or DM on twitter.
+// This Gibson Ridge v3 Color Table by James Hyde is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+// Please refrain from removing these comments :)
+
+ColorTable
+{
+	Category = "CC"
+	Units = "%"
+	Step = 5
+	Scale= 100 
+
+	ND = rgb(0, 0, 0, 0)
+
+	Color[105]  = rgb(0, 0, 0, 0)
+	Color[100.4]= rgb(60, 20, 120)
+	Color[100]  = rgb(25, 55, 190)
+	Color[98.5] = rgb(30, 50, 200)
+	Color[97]   = rgb(5, 115, 170)
+	Color[95]   = rgb(150, 180, 230)
+	Color[92]   = rgb(40, 140, 35)
+	Color[88]   = rgb(40, 140, 35)
+	Color[84]   = rgb(130, 240, 0)
+	Color[80]   = rgb(140, 240, 50)
+	Color[78]   = rgb(235, 240, 10)
+	Color[72]   = rgb(250, 240, 40)
+	Color[62]   = rgb(250, 65, 10)
+	Color[50]   = rgb(245, 40, 10)
+}

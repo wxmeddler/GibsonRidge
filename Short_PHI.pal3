@@ -1,0 +1,31 @@
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Any question/comments can be sent to wxmeddler@gmail.com or DM on twitter.
+// This Gibson Ridge v3 Color Table by James Hyde is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+// Please refrain from removing these comments :)
+
+ColorTable
+{
+	Category = "PHI"
+	Units = "degrees"
+	Step = 20
+
+	Color[0] = gradient(rgb(20,105,10), rgb(20,105,10))
+	Color[11] = rgb(26,145,35)
+	Color[16] = rgb(20,185,15)
+	Color[22] = rgb(35,180,120)
+	Color[25] = rgb(20,190,150)
+	Color[28] = rgb(20,165,255)
+	Color[33] = rgb(20,140,180)
+	Color[38] = rgb(26,40,209)
+	Color[46] = rgb(54,50,255)
+	Color[52] = rgb(36,156,209)
+	Color[57] = rgb(106,168,205)
+	Color[62] = rgb(246,246,246)
+	Color[72] = rgb(188,73,195)
+	Color[80] = rgb(230,90,238)
+	Color[96] = rgb(195,44,42)
+	Color[114]= rgb(255,59,57)
+	Color[136]= rgb(183,143,0)
+	Color[155]= rgb(224,175,0)
+	Color[180]= rgb(254,254,2)
+}

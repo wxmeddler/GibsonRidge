@@ -1,0 +1,16 @@
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Based on the Penn State E-Wall ZR Color Table
+// Please refrain from removing these comments :)
+
+ColorTable
+{
+	Category = "IP"
+	Units = "dBZ" 
+	Step = 5
+
+	Color[5] = rgb(255,190,80)
+	Color[20]= rgb(255,160,50)
+	Color[35]= rgb(235,100,30)
+	Color[45]= rgb(225,80,20)
+	Color[55]= rgb(200,60,10)
+}

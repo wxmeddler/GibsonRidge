@@ -1,0 +1,23 @@
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Any question/comments can be sent to wxmeddler@gmail.com or DM on twitter.
+// This Gibson Ridge v3 Color Table by James Hyde is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+// Please refrain from removing these comments :)
+
+ColorTable
+{
+	Category = "SW"
+	Units =   "KTS"
+	Step =    2
+	Scale =   1.9426  ///converts internal units (M/S) to KTS
+
+	RF = rgb(119,0,117)
+
+	Color[0] = rgb(40,40,40)
+	Color[2] = rgb(50,50,50)
+	Color[4] = rgb(120,120,120)   
+	Color[8] = rgb(150,150,180)  
+	Color[12]= rgb(250,50,10)  
+	Color[16]= rgb(255,150,10)  
+	Color[20]= rgb(255,255,10)  
+	Color[32]= rgb(255,255,255)
+}
