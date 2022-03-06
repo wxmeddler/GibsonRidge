@@ -6,7 +6,7 @@
 ColorTable
 {
 	Category = "KDP"
-	Units =     "°/km"
+	Units =     "deg/km"
 	Decimals =  1
 	Step =      0.5
 
