@@ -1,0 +1,28 @@
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Based on CIMSS AVHRR IR Product
+// Please refrain from removing these comments :)
+
+ColorTable
+{
+	Category = "ET"
+	Units = "KFt"
+	Scale = 3.281
+	Step = 5
+
+	Color[5] = rgb(108,108,108)
+	Color[10]= rgb(132,132,132)
+	Color[15]= Gradient(rgb(178,178,178), rgb(202,202,202))
+	Color[18]= rgb(4,200,204)
+	Color[20]= rgb(4,184,204)
+	Color[25]= rgb(4,96,204)
+	Color[28]= rgb(4,9,204)
+	Color[34]= rgb(3,190,16)  
+	Color[39]= rgb(203,200,2)
+	Color[45]= rgb(204,100,1)
+	Color[50]= rgb(40,0,0)
+	Color[54]= rgb(81,81,81)
+	Color[57]= Gradient(rgb(125,125,125),rgb(178,178,178))
+	Color[60]= rgb(165,89,204)
+	Color[65]= rgb(143,63,178) 
+	Color[70]= rgb(96,9,127)
+}

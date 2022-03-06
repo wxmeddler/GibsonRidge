@@ -1,0 +1,21 @@
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Any question/comments can be sent to wxmeddler@gmail.com or DM on twitter.
+// This Gibson Ridge v3 Color Table by James Hyde is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+// Please refrain from removing these comments :)
+
+ColorTable
+{
+	Category = "KDP"
+	Units =     "°/km"
+	Decimals =  1
+	Step =      0.5
+
+	Color[7.0] = Solid(rgb(200,0,200))
+	Color[5.0] = Gradient(rgb(170,20,20),rgb(255,205,130))
+	Color[4.0] = Gradient(rgb(255,255,0),rgb(255,120,20))
+	Color[2.0] = Gradient(rgb(15,150,40),rgb(10,255,10))
+	Color[1.0] = Gradient(rgb(98,255,250),rgb(65,170,168))
+	Color[-0.5]= Gradient(rgb(23,23,128),rgb(71,194,235))
+	Color[-1.0] = Solid(rgb(75,75,75))
+	Color[-2.0] = Solid(rgb(118,118,118))
+}

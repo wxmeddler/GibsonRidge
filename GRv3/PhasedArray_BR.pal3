@@ -1,0 +1,20 @@
+/// "Phased Array" Color Table for GRv3
+/// Converted from GRv2 to GRv3 by James Hyde - @wxmeddler
+
+ColorTable
+{
+	Category = "BR"
+	Units = "dBZ"
+	Step = 5
+	
+	color[-10] = gradient(rgb(30,30,30), rgb(99,99,99))
+	color[0]   = gradient(rgb(120,120,120), rgb(160,160,160))
+	color[20]  = gradient(rgb(51,204,255), rgb(1,64,245))
+	color[30]  = gradient(rgb(0,127,0), rgb(10,255,10))
+	color[40]  = gradient(rgb(254,252,0), rgb(198,85,9))
+	color[50]  = gradient(rgb(253,0,0), rgb(128,0,0))
+	color[60]  = gradient(rgb(140,1,139), rgb (254,51,204))
+	color[70]  = gradient(rgb(255,101,215), rgb(255,155,230))
+	color[80]  = gradient(rgb(255,255,255), rgb(0,0,0))
+	color[95]  = rgb(0,0,0)
+}
