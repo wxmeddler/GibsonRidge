@@ -1,0 +1,82 @@
+// Liquid Hail Diffrential Reflectivity as described by Aydin, K., Seliga, T. A., & Balaji, V. (1986)
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Any question/comments can be sent to wxmeddler@gmail.com or DM on twitter.
+// This Gibson Ridge v3 Color Table by James Hyde is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+// Please refrain from removing these comments :)
+
+// Liquid HDR (LHDR) differs in that LHDR takes the average HDR from all elevation scans below 0°C.
+
+//******************************************************************************
+
+Product
+{
+  Name = "LHDR" // Name as it will appear in GR2AE3
+  
+  Category
+   {
+	Missing = -10	// Absolute lowest value possible
+	Minimum = -10	// category minimum value
+	Maximum = 60	// category maximum value
+	Units = "dB"
+	
+    ColorTable		// color table for LHDR category
+     {
+      Units    = "dB"
+      Step     = 5
+	
+	  Color[10] = solid(rgb(50,255,50))		// green 10 to 15 - Non-Severe Hail
+	  Color[15] = solid(rgb(255,255,0))		// yellow 15 to 20 - Low Confidence Severe Hail
+	  Color[20] = solid(rgb(255,200,50))	// orange 20 to 25 - Severe Hail Start
+	  Color[25] = solid(rgb(255,0,0))		// red 25 to 30 - High Confidence in Severe Hail
+	  Color[30] = solid(rgb(0,0,255))		// blue 30 to 35 - Large Hail OR Severe Wet Hail
+	  Color[35] = solid(rgb(125,0,255))		// purple 35 to 40 - Chonker Hail
+	  Color[40] = solid(rgb(250,75,195))	// hot pink 40 to 45 - OH LAWD HAIL COMIN
+	  Color[45] = rgb(250,75,195)
+     }
+   }
+  min_br_required = 20 // Code does not execute for bins below 20 dbz
+  resolution = high // 1x1 km bins
+ }
+
+//******************************************************************************
+
+Program{
+ float br; // initialize variables
+ float zdr;
+ float fzdr;
+ float fzdr_tot;
+ float br_tot;
+ float fzdr_avg;
+ float br_avg;
+ float count;
+ float abvfrz;
+ 
+ abvfrz = constants.hgt_0c - 300; // Take the zero degree C height and subtract 300m
+ 
+ // Start values at zero
+ count = 0;
+ fzdr_tot = 0;
+ br_tot = 0;
+ fzdr_avg = 0;
+ br_avg = 0;
+ 
+ enumerate levels from 0 to abvfrz //Enumerate all levels from 0m to abvfrz
+   {br = BRfromHGT(level.height);
+	zdr = ZDRfromHGT(level.height);
+	
+	if(zdr <= 0) // if zdr is below zero set fzdr to 27
+		{fzdr = 27;}
+	elseif(zdr > 1.74) // if zdr is above 1.74 set fzdr to 60
+		{fzdr = 60;}
+	else // Anything between zero and 1.74 zdr is set to 19*zdr + 27
+		{fzdr = 19*zdr + 27;}
+		
+	br_tot = br_tot + br; // totalizer for br
+	fzdr_tot  = fzdr_tot + fzdr; // totalizer for fzdr
+	count = count + 1;} // Counter
+
+ fzdr_avg = fzdr_tot / count; // Averaging
+ br_avg = br_tot / count;  // Averaging
+ 
+ return br_avg - fzdr_avg;  //Liquid HDR Output
+ }
