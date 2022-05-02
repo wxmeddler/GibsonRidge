@@ -16,7 +16,7 @@ Product
    {
 	Missing = -10	// Absolute lowest value possible
 	Minimum = -10	// category minimum value
-	Maximum = 60	// category maximum value
+	Maximum = 50	// category maximum value
 	Units = "dB"
 	
     ColorTable		// color table for LHDR category
@@ -26,22 +26,22 @@ Product
 	
 	  Color[10] = solid(rgb(50,255,50))		// green 10 to 15 - Non-Severe Hail
 	  Color[15] = solid(rgb(255,255,0))		// yellow 15 to 20 - Low Confidence Severe Hail
-	  Color[20] = solid(rgb(255,200,50))	// orange 20 to 25 - Severe Hail Start
+	  Color[20] = solid(rgb(255,200,50))		// orange 20 to 25 - Severe Hail Start
 	  Color[25] = solid(rgb(255,0,0))		// red 25 to 30 - High Confidence in Severe Hail
 	  Color[30] = solid(rgb(0,0,255))		// blue 30 to 35 - Large Hail OR Severe Wet Hail
 	  Color[35] = solid(rgb(125,0,255))		// purple 35 to 40 - Chonker Hail
-	  Color[40] = solid(rgb(250,75,195))	// hot pink 40 to 45 - OH LAWD HAIL COMIN
+	  Color[40] = solid(rgb(250,75,195))		// hot pink 40 to 45 - OH LAWD HAIL COMIN
 	  Color[45] = rgb(250,75,195)
      }
    }
   min_br_required = 20 // Code does not execute for bins below 20 dbz
-  resolution = high // 1x1 km bins
+  resolution = high // 0.5 deg x 0.5 deg bins
  }
 
 //******************************************************************************
 
 Program{
- float br; // initialize variables
+ float br; // declare variables
  float zdr;
  float fzdr;
  float fzdr_tot;
@@ -60,20 +60,19 @@ Program{
  fzdr_avg = 0;
  br_avg = 0;
  
- enumerate levels from 0 to abvfrz //Enumerate all levels from 0m to abvfrz
-   {br = BRfromHGT(level.height);
-	zdr = ZDRfromHGT(level.height);
-	
-	if(zdr <= 0) // if zdr is below zero set fzdr to 27
-		{fzdr = 27;}
-	elseif(zdr > 1.74) // if zdr is above 1.74 set fzdr to 60
-		{fzdr = 60;}
-	else // Anything between zero and 1.74 zdr is set to 19*zdr + 27
-		{fzdr = 19*zdr + 27;}
-		
-	br_tot = br_tot + br; // totalizer for br
-	fzdr_tot  = fzdr_tot + fzdr; // totalizer for fzdr
-	count = count + 1;} // Counter
+ Curve fzdr_curve = 	// declare piecewise linear curve for zdr to fzdr
+	{
+	{0.00,27},	// when zdr <= 0.00, output 27
+	{1.74,60}	// when zdr < 1.74, linearly interpolate from 27 to 60
+	};
+ 
+ enumerate levels from 0 to abvfrz	//Enumerate all levels from 0m to abvfrz
+ 	{br = BRfromHGT(level.height);	//Take the reflectivity of the height
+	zdr = ZDRfromHGT(level.height); //Take the ZDR of the height
+	fzdr = fzdr_curve[zdr];		//Apply the fzdr curve to zdr and assign it to fzdr
+	br_tot = br_tot + br; 		// totalizer for br
+	fzdr_tot  = fzdr_tot + fzdr; 	// totalizer for fzdr
+	count = count + 1;} 		// Counter
 
  fzdr_avg = fzdr_tot / count; // Averaging
  br_avg = br_tot / count;  // Averaging
