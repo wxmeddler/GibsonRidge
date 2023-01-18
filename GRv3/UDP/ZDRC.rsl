@@ -1,0 +1,74 @@
+// ZDR Collumn Temperature Above Zero
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Any question/comments can be sent to wxmeddler@gmail.com or DM on twitter.
+// This Gibson Ridge v3 Color Table by James Hyde is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+// Please refrain from removing these comments :)
+
+//******************************************************************************
+
+Product
+{
+  Name = "ZDRC" // Name as it will appear in GR2AE3
+  
+  Category
+   {
+	Missing = 50	// Absolute lowest value possible
+	Minimum = -20	// category minimum value
+	Maximum = 30	// category maximum value
+	Units = "degC"
+	
+    ColorTable		// color table for ZDRC category
+    {
+      Units    = "degC"
+      Step     = 5
+	  Color[30] = solid(rgb(255,255,255))  		// Black for -30 and Beyond
+	  Color[22] = solid(rgb(255,255,255))	// White for -22  to -30
+	  Color[18] = solid(rgb(255,75,255))	// Hot Pink from -18 to -22
+	  Color[10] = solid(rgb(205,0,205))		// Purple for -10 to -18
+	  Color[3] = solid(rgb(0,0,205))		// Cyan from -3 to -10
+	  Color [-5] = solid(rgb(0,120,0,95))	// Dark Green from 5 to -3 at 75% opacity
+	  Color[-10] = solid(rgb(50,255,50,75))	// Light green at 50% opacity from 10 to 5
+	  Color[-10] = rgb(100,100,100,30)		// transparent gray from 20 to 10
+     }
+   }
+  min_br_required = 20 // Code does not execute for bins below 30 dbz
+  resolution = high // 0.5 deg x 0.5 deg bins
+ }
+//**********************************************************
+Program
+ {
+  float ZDRThresh; 
+  float CCThresh;
+  float KDPThresh;
+  float ZDRTop;
+  float ConvCheck;
+  //float belofrz; 
+  float belom20;
+  
+  //Variables
+  ZDRThresh = 1.0; // Threshold for ZDR to count
+  CCThresh = 0.85; // Threshold for CC to count
+  KDPThresh = -1; // Threshold for KDP to count
+  ConvCheck = 25; // Threshold reflectivity at -20C  to count
+  
+  // Setup
+  ZDRTop = 0; // In meters
+  //belofrz = constants.hgt_0c - 300; // Take the zero degree C height and subtract X meters due to wetbulb effects
+  belom20 = constants.hgt_m20c + 1000; // Take the -20C height and add X meters due to updraft velocity effects
+
+  //Enumeration
+  enumerate levels from constants.hgt_lowest to belom20 // Enumerate all levels from radar level to 1km above the -20C level
+	{if(
+	ZDRfromHGT(level.height) >= ZDRThresh &&
+	level.height >= ZDRTop &&
+	CCfromHGT(level.height) >= CCThresh &&
+	KDPfromHGT(level.height) >= KDPThresh &&
+	BRfromHGT(constants.hgt_m20c) >= ConvCheck)
+		
+		{ZDRTop = level.height;}
+	}
+  ZDRTop = TempfromHGT(ZDRTop);
+  
+  
+  return -1 * ZDRTop; // This inverts so the color table and max trails works
+ }
