@@ -161,16 +161,3 @@ with open(str(pfilename)+".txt", "a") as fout: #Write a new file
 fout.close()
 print('It is Done! Your Placefile contains '+ str(processnum)+ ' positions!')
 print('Your placefile is now in the same folder as this .py file called '+ str(pfilename)+'.txt')
-
-
-# In[ ]:
-
-
-display(df.head(10))
-
-
-# In[ ]:
-
-
-
-
