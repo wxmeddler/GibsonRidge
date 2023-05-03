@@ -1,0 +1,46 @@
+// Made by James Hyde - Twitter: @wxmeddler for use in Gibson Ridge Software Version 3
+// Any question/comments can be sent to wxmeddler@gmail.com or DM on twitter.
+// This Gibson Ridge v3 Color Table by James Hyde is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+// Please refrain from removing these comments :)
+// Uses the users ZDR color table by default
+//***********************************************************
+// FZDR Takes the average ZDR from -5c to -15c, the most hail growth prone region.
+// GR2AE does not know the exact height of the -5C and -15C level. But it does know the 0C and -20C height from the ambient RAP derived temperature profile.
+// So we approximate the -5 and -15C height by taking the 0C level and adding 650m. The 650m assumes that our lapse rates are ~7.8/KM, which gets us to -5C. 
+// Similarly we take the -20C level and subtract 650m to get -15C at an average lapse rate of ~7.8/KM.
+//***********************************************************
+Product
+ {
+  Name     = "FZDR"
+  Category = "ZDR"
+  min_br_required = 31 // Code does not execute for bins below 31 dbz
+  Resolution = high // High Resolution 1km x 1km
+ }
+ //**********************************************************
+Program
+ {
+  float tot_zdr; // Totalizer
+  float count; // Enumerator Counter  
+  float avg_zdr; // For Returning Average
+  float m5c; // Placeholder for -5C Level
+  float m15c; // Placeholder for -15C Level
+  
+  
+  tot_zdr = 0; // Start at zero
+  avg_zdr = 0; // Start at zero
+  count = 0; // Start at zero
+   m5c = constants.hgt_0c + 650; // Take the zero degree C height and add 650m for the -5C height assuming ~7.8/km
+  m15c = constants.hgt_m20c - 650; // Take the -20 degree C height level and subtract 650m for the -15C height assuming ~7.8/km
+
+
+  enumerate levels from m5c to m15c //Enumerate all levels from 0c to 2km above the freezing level
+   {if( CCfromHGT( level.height ) > 0.70 ) // Only run the zdr totalizer on the CC from level is > 70%.
+	 {tot_zdr = ( tot_zdr + ZDRfromHGT( level.height ) ); // totalizer
+	 count = count + 1; //running counter
+	 }
+	}
+  
+  avg_zdr=tot_zdr/count; // Averager
+  
+  return avg_zdr; // Return the average for display
+ }
