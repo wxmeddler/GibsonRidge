@@ -8,7 +8,7 @@
 //***********************************************************
 Product
  {
-  Name     = "HZDR"
+  Name     = "2ZDR"
   Category = "ZDR"
   min_br_required = 30 // Code does not execute for bins below 30 dbz
   Resolution = standard // Produces a sweep of 360 one-degree radials with 230 one-kilometer points
@@ -21,17 +21,16 @@ Program
   float avg_zdr; // For Returning Average
   float blofrz; // Placeholder for Freezing Level
   float akm; // Placeholder for -20C Level
+  float hgtabvfrz; // Placeholder for user defined height
   
-  hgtabvfrz = 2000 // *ADJUST VALUE HERE FOR CUSTOM HEIGHT ABOVE FREEZING LEVEL (IN METERS)*
+  hgtabvfrz = 2000; // *ADJUST VALUE HERE FOR CUSTOM HEIGHT ABOVE FREEZING LEVEL (IN METERS)*
   
   tot_zdr = 0; // Start at zero
   avg_zdr = 0; // Start at zero
   count = 0; // Start at zero
   blofrz = constants.hgt_0c; // Take the freezing height
   
-  
-  m2km = constants.hgt_0c + hgtabvfrz; // take the freezing height and add custom height
-
+  akm = constants.hgt_0c + hgtabvfrz; // take the freezing height and add custom height
 
   enumerate levels from blofrz to akm //Enumerate all levels from 0c to user defined height above the freezing level
    {if( CCfromHGT( level.height ) > 0.70 ) // Only run the zdr totalizer on the CC from level is > 70%.
