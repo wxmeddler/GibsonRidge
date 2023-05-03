@@ -35,7 +35,7 @@ Product
      }
    }
   min_br_required = 20 // Code does not execute for bins below 20 dbz
-  resolution = high // 0.5 deg x 0.5 deg bins
+  resolution = high // Produces 720 half-degree radials with 300 half-kilometer points.
  }
 
 //******************************************************************************
