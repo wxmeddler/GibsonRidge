@@ -2,18 +2,16 @@
 // Any question/comments can be sent to wxmeddler@gmail.com or DM on twitter.
 // This Gibson Ridge v3 Color Table by James Hyde is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
 // Please refrain from removing these comments :)
-// Uses the users ZDR color table by default
 //***********************************************************
-// FZDR Takes the average ZDR from -5c to -15c, the most hail growth prone region.
-// GR2AE does not know the exact height of the -5C and -15C level. But it does know the 0C and -20C height from the ambient RAP derived temperature profile.
-// So we approximate the -5 and -15C height by taking the 0C level and adding 600m. The 600m assumes that our lapse rates are 8.5C/KM, which gets us to -5C. 
-// Similarly we take the -20C level and subtract 600m to get -15C at an average lapse rate of 8.5C/KM.
+// FZDR allows the user to make their own custom temperature based itteratve layer average for ZDR for ZDR Collumn detection and study.
+// The default is -5c to -15C.
+// Uses the users ZDR color table by default
 //***********************************************************
 Product
  {
   Name     = "FZDR"
   Category = "ZDR"
-  min_br_required = 31 // Code does not execute for bins below 31 dbz
+  min_br_required = 30 // Code does not execute for bins below 30 dbz
   Resolution = standard // High Resolution 1km x 1km
  }
  //**********************************************************
@@ -22,18 +20,23 @@ Program
   float tot_zdr; // Totalizer
   float count; // Enumerator Counter  
   float avg_zdr; // For Returning Average
-  float m5c; // Placeholder for -5C Level
-  float m15c; // Placeholder for -15C Level
+  float warmestdegC; // Placeholder for warmest level
+  float coldestdegC; // Placeholder for coldest level
+  float bottomhgt; // Placeholder for lowest itteration level
+  float tophgt; // Placeholder for highest itteration level
   
+  warmestdegC = -5; // *INSERT YOUR CUSTOM WARMEST TEMPERATURE VALUE HERE (IN DEG C)*
+  coldestdegC = -15; // *INSERT YOUR CUSTOM COLDEST TEMPERATURE VALUE HERE (IN DEG C)*
   
   tot_zdr = 0; // Start at zero
   avg_zdr = 0; // Start at zero
   count = 0; // Start at zero
-   m5c = constants.hgt_0c + 600; // Take the zero degree C height and add 600m for the -5C height assuming 8.5C/km
-  m15c = constants.hgt_m20c - 600; // Take the -20 degree C height level and subtract 600m for the -15C height assuming 8.5C/km
+  
+  bottomhgt = HGTfromTEMP(warmestdegC);
+  tophgt = HGTfromTEMP(coldestdegC);
 
 
-  enumerate levels from m5c to m15c //Enumerate all levels from 0c to 2km above the freezing level
+  enumerate levels from bottomhgt to tophgt //Enumerate all levels from bottom height to top height
    {if( CCfromHGT( level.height ) > 0.70 ) // Only run the zdr totalizer on the CC from level is > 70%.
 	 {tot_zdr = ( tot_zdr + ZDRfromHGT( level.height ) ); // totalizer
 	 count = count + 1; //running counter
