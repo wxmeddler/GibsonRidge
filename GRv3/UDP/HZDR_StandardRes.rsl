@@ -8,7 +8,7 @@
 //***********************************************************
 Product
  {
-  Name     = "2ZDR"
+  Name     = "HZDR"
   Category = "ZDR"
   min_br_required = 30 // Code does not execute for bins below 30 dbz
   Resolution = standard // Produces a sweep of 360 one-degree radials with 230 one-kilometer points
